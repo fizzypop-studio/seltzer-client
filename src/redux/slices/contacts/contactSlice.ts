@@ -1,11 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
-	getContacts,
-	getContact,
-	createContact,
-	updateContact,
-	deleteContact,
-} from 'services/api/contactAPI';
 
 export interface Contact {
 	id?: string;
@@ -51,67 +44,54 @@ const initialState: AuthState = {
 	errorMessages: [],
 };
 
+const dummyContacts = [
+	{
+		id: 1,
+		first_name: 'Michael',
+		last_name: 'Scott',
+		email: 'michael@dundermifflin.com',
+		role: 'Regional Manager',
+		created_at: '12/22/1991',
+	},
+];
+
 export const getUserContacts = createAsyncThunk(
 	'session/getUserContacts',
-	async (payload: string, { rejectWithValue }) => {
-		const response = await getContacts(payload);
-		if (response.errors) {
-			// The value we return becomes the `rejected` action payload
-			return rejectWithValue(response);
-		}
-		// The value we return becomes the `fulfilled` action payload
-		return response;
+	async () => {
+		return dummyContacts;
 	}
 );
 
 export const getUserContact = createAsyncThunk(
 	'session/getUserContact',
-	async (payload: ContactFetchData, { rejectWithValue }) => {
-		const response = await getContact(payload.id, payload.token);
-		if (response.errors) {
-			// The value we return becomes the `rejected` action payload
-			return rejectWithValue(response);
-		}
-		// The value we return becomes the `fulfilled` action payload
-		return response;
+	async () => {
+		return dummyContacts[0];
 	}
 );
 
 export const createUserContact = createAsyncThunk(
 	'session/createUserContact',
-	async (payload: Contact, { rejectWithValue }) => {
-		const response = await createContact(payload, payload.token);
-		if (response.errors) {
-			// The value we return becomes the `rejected` action payload
-			return rejectWithValue(response);
-		}
-		// The value we return becomes the `fulfilled` action payload
+	async (payload: Contact) => {
+		const response = payload;
+
 		return response;
 	}
 );
 
 export const updateUserContact = createAsyncThunk(
 	'session/updateUserContact',
-	async (payload: Contact, { rejectWithValue }) => {
-		const response = await updateContact(payload, payload.token);
-		if (response.errors) {
-			// The value we return becomes the `rejected` action payload
-			return rejectWithValue(response);
-		}
-		// The value we return becomes the `fulfilled` action payload
+	async (payload: Contact) => {
+		const response = payload;
+
 		return response;
 	}
 );
 
 export const deleteUserContact = createAsyncThunk(
 	'session/deleteUserContact',
-	async (payload: ContactFetchData, { rejectWithValue }) => {
-		const response = await deleteContact(payload.id, payload.token);
-		if (response.errors) {
-			// The value we return becomes the `rejected` action payload
-			return rejectWithValue(response);
-		}
-		// The value we return becomes the `fulfilled` action payload
+	async (payload: ContactFetchData) => {
+		const response = payload;
+
 		return response;
 	}
 );

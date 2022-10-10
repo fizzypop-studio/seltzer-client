@@ -11,8 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile } from 'redux/slices/sessions/sessionSlice';
+import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 
 import { Contact } from 'types/Contact';
@@ -39,17 +38,10 @@ export const AccountForm = ({
 }: AccountFormProps) => {
 	const [avatar, setAvatar] = useState('');
 	const [file, setFile] = useState(null);
-	const errorMessages = useSelector(
-		(state: RootState) => state.contact.errorMessages
-	);
 	const loading = useSelector((state: RootState) => state.contact.loading);
 	const accessToken = useSelector(
 		(state: RootState) => state.session.accessToken
 	);
-	const currentUser = useSelector(
-		(state: RootState) => state.session.currentUser
-	);
-	const dispatch = useDispatch();
 	const { t } = useTranslation();
 
 	const roleOptions = [{ value: 'user', label: 'User' }];
@@ -70,7 +62,6 @@ export const AccountForm = ({
 		handleSubmit,
 		control,
 		formState: { errors },
-		setError,
 		reset,
 		watch,
 	} = useForm<AccountFormValues>({ resolver: yupResolver(schema) });
@@ -96,15 +87,8 @@ export const AccountForm = ({
 			role: data.role,
 			token: accessToken,
 		};
-		const response = await dispatch(updateProfile(payload));
-		if (errorMessages.length === 0) {
-			if (handleCloseModal) handleCloseModal();
-		} else {
-			setError('email', {
-				type: 'custom',
-				message: 'Something went wrong. Please try again',
-			});
-		}
+		console.log({ payload });
+		if (handleCloseModal) handleCloseModal();
 	}
 
 	const handleSetAvatarFile = (avatarFile: any) => {

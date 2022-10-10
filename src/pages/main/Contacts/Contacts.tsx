@@ -42,7 +42,7 @@ export const Contacts = () => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		dispatch(getUserContacts(accessToken || ''));
+		dispatch(getUserContacts());
 	}, [dispatch, accessToken]);
 
 	const columns: Column[] = [

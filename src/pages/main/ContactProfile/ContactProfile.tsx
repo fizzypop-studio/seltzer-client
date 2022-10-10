@@ -39,11 +39,7 @@ export const ContactProfile = () => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		const payload = {
-			id,
-			token: accessToken,
-		};
-		dispatch(getUserContact(payload));
+		dispatch(getUserContact());
 	}, [id, dispatch, accessToken]);
 
 	function handleShowContactModal() {

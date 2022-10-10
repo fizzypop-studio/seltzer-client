@@ -14,10 +14,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'redux/store';
-import { sendResetPasswordEmail } from 'redux/slices/sessions/sessionSlice';
-
 import { EMAIL_REGEX } from 'helpers/regex';
 
 import * as S from './ForgotPassword.styles';
@@ -27,10 +23,6 @@ type ForgotPasswordFormValues = {
 };
 
 export const ForgotPassword = () => {
-	const errorMessages = useSelector(
-		(state: RootState) => state.session.errorMessages
-	);
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
@@ -47,19 +39,11 @@ export const ForgotPassword = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-		setError,
 	} = useForm<ForgotPasswordFormValues>({ resolver: yupResolver(schema) });
 
 	async function onSubmit(data: ForgotPasswordFormValues) {
-		const response = await dispatch(sendResetPasswordEmail(data.email));
-		if (errorMessages.length === 0) {
-			navigate('/dashboard');
-		} else {
-			setError('email', {
-				type: 'custom',
-				message: 'Email already exists',
-			});
-		}
+		console.log({ data });
+		navigate('/users/password/edit');
 	}
 
 	return (

@@ -12,13 +12,6 @@ import {
 	Typography,
 } from 'components';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'redux/store';
-import {
-	signUpUser,
-	resetErrorState,
-} from 'redux/slices/sessions/sessionSlice';
-
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -39,10 +32,6 @@ type SignUpFormValues = {
 };
 
 export const SignUp = () => {
-	const errorMessages = useSelector(
-		(state: RootState) => state.session.errorMessages
-	);
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
@@ -65,13 +54,11 @@ export const SignUp = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-		setError,
 		clearErrors,
 	} = useForm<SignUpFormValues>({ resolver: yupResolver(schema) });
 
 	useEffect(() => {
 		clearErrors();
-		resetErrorState();
 	}, [clearErrors]);
 
 	async function onSubmit(data: SignUpFormValues) {
@@ -81,15 +68,8 @@ export const SignUp = () => {
 			email: data.email,
 			password: data.password,
 		};
-		const response = await dispatch(signUpUser(payload));
-		if (errorMessages.length === 0) {
-			navigate('/dashboard');
-		} else {
-			setError('email', {
-				type: 'custom',
-				message: t('auth.loginTryAgain'),
-			});
-		}
+		console.log({ payload });
+		navigate('/dashboard');
 	}
 
 	return (

@@ -3,7 +3,7 @@ import * as S from './Box.styles';
 import { BoxProps as MUIBoxProps } from '@mui/material/Box';
 
 export type BoxProps = MUIBoxProps & {
-	hasElevation?: boolean;
+	hasElevation?: boolean | undefined;
 };
 
 export const Box = forwardRef(({ hasElevation, ...props }: BoxProps, ref) => {

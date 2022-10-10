@@ -54,7 +54,7 @@ const Router = () => {
 					}
 				/>
 
-				<Route element={<PersistLogin />}>
+				<Route>
 					<Route
 						path="/dashboard"
 						element={
