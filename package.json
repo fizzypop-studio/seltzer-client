@@ -1,6 +1,6 @@
 {
-  "name": "seltzer-app",
-  "version": "0.1.0",
+  "name": "seltzer-client",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@emotion/css": "^11.10.0",
@@ -117,9 +117,5 @@
     "prettier-eslint": "^13.0.0",
     "prettier-eslint-cli": "^5.0.1",
     "webpack": "^5.71.0"
-  },
-  "engines": {
-    "node": "17.4.0",
-    "yarn": "1.22.18"
   }
 }
