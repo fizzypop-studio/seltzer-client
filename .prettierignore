@@ -1,0 +1,19 @@
+# Dependencies
+**/node_modules/**
+
+# Testing
+coverage
+
+# Production
+dist
+build
+logs
+config
+**/build/**
+**/dist/**
+
+# Files
+*.js
+*.jsx
+*.cjs
+*.mjs
